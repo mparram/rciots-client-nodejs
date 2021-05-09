@@ -1,0 +1,19 @@
+{
+  "name": "rciots-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "docker-compose": "^0.23.8",
+    "forever": "^3.0.4",
+    "forever-monitor": "^3.0.3",
+    "node-machine-id": "^1.1.12",
+    "socket.io-client": "^4.0.1"
+  }
+}

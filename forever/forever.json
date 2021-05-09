@@ -1,0 +1,10 @@
+{
+    "uid": "rciots-client",
+    "append": true,
+    "watch": true,
+    "script": "app.js",
+    "sourceDir": "/root/rciots/client/",
+    "logFile": "/root/rciots/client/logs/forever.log",
+    "outFile": "/root/rciots/client/logs/out.log",
+    "errFile": "/root/rciots/client/logs/error.log"
+}
