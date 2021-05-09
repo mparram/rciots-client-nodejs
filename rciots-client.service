@@ -9,7 +9,7 @@ Environment=PATH=/usr/bin:/usr/local/bin
 WorkingDirectory=/var/home/edge/rciots/rciots-client-nodejs
 ExecStart=/var/home/edge/rciots/rciots-client-nodejs/node_modules/forever/bin/forever start /var/home/edge/rciots/rciots-client-nodejs/forever/forever.json
 ExecStop=/var/home/edge/rciots/rciots-client-nodejs/node_modules/forever/bin/forever stop /var/home/edge/rciots/rciots-client-nodejs/forever/forever.json
-PIDFile=/var/run/rciots-client.pid
+PIDFile=/var/home/edge/rciots/rciots-client-nodejs/rciots-client.pid
 User=root
 [Install]
 WantedBy=multi-user.target
