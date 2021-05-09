@@ -1,9 +1,10 @@
 // client config var
 var config;
 const fs = require('fs');
-// if the config is hardcoded in client, we need to read from a file
+// if the config is hardcoded in client, it will not connect to device-controller
 var cfgFile = './cfg/clientcfg.json';
-var connectionFile = './connection.cfg';
+// We can define the host and token in connection.json file, or with env RCIOTS_ENDPOINT & RCIOTS_TOKEN
+var connectionFile = './connection.json';
 // token = base64 host@token
 if ((process.env.RCIOTS_ENDPOINT == undefined) || (process.env.RCIOTS_TOKEN == undefined)){
   if (fs.existsSync(connectionFile)){
@@ -13,7 +14,7 @@ if ((process.env.RCIOTS_ENDPOINT == undefined) || (process.env.RCIOTS_TOKEN == u
     // console.log("Without env.RCIOTS_ENDPOINT & env.RCIOTS_TOKEN or configfile hardcoded can't do nothing.");
     // process.exit(2);
     //DEBUG TOKEN:
-    var token = "d3NzOi8vZGV2aWNlLW1hbmFnZXItcmNpb3RzLmFwcHMub2NwLnJjaW90cy5jb21AMDFmYTk0NThiNjBjNDZkNg==";
+    var token = "aHR0cHM6Ly9kZXZpY2UtY29udHJvbGxlci11c2VyMi1xaW90aGFja2Zlc3QuYXBwcy5jbHVzdGVyLWNmMDQuY2YwNC5zYW5kYm94Mzcub3BlbnRsYy5jb21AMDFmYTk0NThiNjBjNDZkNgo=";
   }
 } else {
   var token = new Buffer.from(process.env.RCIOTS_ENDPOINT + "@" + process.env.RCIOTS_TOKEN).toString('base64');
