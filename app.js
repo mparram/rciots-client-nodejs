@@ -54,7 +54,8 @@ try {
           ca: fs.readFileSync('ca.cer'),
           secure: true,
           reconnection: true, 
-          rejectUnauthorized: false
+          rejectUnauthorized: false,
+          transports: ['websocket']
       });
       
       socket.on("connect", () => {
