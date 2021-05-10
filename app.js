@@ -54,9 +54,13 @@ try {
           ca: fs.readFileSync('ca.cer'),
           secure: true
       });
+      
       socket.on("connect", () => {
           console.log("socket.connected"); // true
           socket.emit("device_enroll", postData);
+      });
+      socket.on("connect_error", (err) => {
+        console.log(`connect_error due to ${err.message}`);
       });
       socket.on("devicecfg", data => {
           console.log(data);
