@@ -53,7 +53,8 @@ try {
           hwid: id
           }, 
           ca: fs.readFileSync('ca.cer'),
-          secure: true
+          secure: true,
+          transports: ['xhr-polling','polling', 'websocket']
       });
       
       socket.on("connect", () => {
