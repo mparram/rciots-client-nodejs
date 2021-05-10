@@ -61,7 +61,7 @@ try {
           socket.emit("device_enroll", postData);
       });
       socket.on("connect_error", (err) => {
-        console.log(`connect_error due to ${err.message}`);
+        console.log(`connect_error due to ${err}`);
       });
       socket.on("devicecfg", data => {
           console.log(data);
