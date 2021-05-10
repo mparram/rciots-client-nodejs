@@ -1,4 +1,5 @@
 {
     "endpoint": "wss://device-controller-user2-qiothackfest.apps.cluster-cf04.cf04.sandbox37.opentlc.com",
+    "endpoint2": "wss://device-manager-rciots.apps.ocp.rciots.com",
     "token": "01fa9458b60c46d6"
 }
