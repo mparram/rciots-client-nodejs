@@ -34,6 +34,7 @@ try {
       let tokenArr = buff.toString('utf8').split("@");
       // socket.io-client for device-manager connection
       const io = require("socket.io-client");
+      io.set('transports', ['xhr-polling','polling', 'websocket']);
       // plugins status array
       var plugins =  [];
       // IF enableWSEmit is true, the client will push any update throught WebSocket, false to disable.
