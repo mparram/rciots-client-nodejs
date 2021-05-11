@@ -32,6 +32,7 @@ module.exports = {
               return callback(plugin);
             },
             (err) => {
+                console.log(plugin.composefile);
                 plugin.status.date = new Date();
                 plugin.status.message = 'something went wrong:', err.message;
                 console.log('something went wrong:', err.message);
