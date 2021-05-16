@@ -3,9 +3,9 @@
 
 ### Introduction
 
-***TLTR:*** This is a NodeJS client who can run docker-composes files or metrics collector based on a config received from rciots-device-controller App through websockets, queried from K8s API CR of type edgeTemplate & saved updated data to CR edgeDevice. **Its main purpose is to integrate edge devices into Openshift control.**
+***TLTR:*** This is a NodeJS client who can run docker-composes files or metrics collector based on a config received from rciots-device-controller App through websockets, queried from K8s API CR of type edgeTemplate & saved updated data to CR edgeDevice. **Its main purpose is to manage the client config from Openshift Console.**
 
-Together with the repo rciots-device-controller, they complete the proposal to the RedHat QIOT Hackfest 2021 from the "Sopra Steria Spain" team.
+Together with the repo [rciots-device-controller](https://github.com/mparram/rciots-device-controller), they complete the proposal to the RedHat QIOT Hackfest 2021 from the "Sopra Steria" team.
 It's a POC to manage the docker-composes with Quarkus pods, running in RaspberryPi 3b+ with FedoraIOT arm64 from Openshift Console. valid for any device running Docker / podman and able to run nodejs. But extensible through plugins to meet new needs.
 
 The device-controller is an endpoint who waits for connections through Web Socket Secure, these connections are authenticated by a token sent by the client, and it is the only thing to define in the clients, containing the url endpoint and the token. (also needs the ca.cer to trust the ingress CA, preconfigured to the provider of current QIOT cluster *.apps.cluster-cf04.cf04.sandbox37.opentlc.com)
@@ -39,12 +39,13 @@ sudo systemctl enable podman.socket
 sudo systemctl start podman.socket
 ```
 
-clone this repo to /var/home/edge/rciots/client for example:
+clone this repo to /var/home/edge/rciots/ for example:
 
 ```
-mkdir -p /var/home/edge/rciots/client
-cd /var/home/edge/rciots/client
-git clone https://github.com/mparram/rciots-client-nodejs.git .
+mkdir /var/home/edge/rciots
+cd /var/home/edge/rciots
+git clone https://github.com/mparram/rciots-client-nodejs.git
+cd rciots-client-nodejs
 ```
 
 Install node dependencies:
@@ -52,12 +53,15 @@ Install node dependencies:
 npm install
 ```
 
-Add your token to reference  https://device-manager-endpoint@edgeTemplateName in base64 to connection.cfg. Example:
+Add your token and endpoint to connection.cfg. Preconfigured example:
 ```
-echo 'https://device-controller-user2-qiothackfest.apps.cluster-cf04.cf04.sandbox37.opentlc.com@01fa9458b60c46d6' | base64 -w 0 > connection.cfg
+{
+    "endpoint": "wss://device-controller-user2-qiothackfest.apps.cluster-cf04.cf04.sandbox37.opentlc.com",
+    "token": "01fa9458b60c46d6"
+}
 ```
 
-If you want to test in your own instance of device-controller, you need to obtain the ca.cer from your endpoint:
+If you want to test in your own instance of device-controller, you need to obtain the ca.cer from  Openshift secrets or with openssl pointing your endpoint:
 
 ```
 openssl s_client -connect device-controller-user2-qiothackfest.apps.cluster-cf04.cf04.sandbox37.opentlc.com:443 -showcerts
@@ -72,15 +76,13 @@ node app.js
 or run with forever:
 
 ```
-/var/home/edge/rciots/client/node_modules/forever/bin/forever start /var/home/edge/rciots/client/forever/forever.json
+/var/home/edge/rciots/rciots-client-nodejs/node_modules/forever/bin/forever start /var/home/edge/rciots/rciots-client-nodejs/forever/forever.json
 ```
 
-adding to startup device (Proposals are accepted to find another way in FedoraIoT):
-
+To Do: Start as service, at the moment Selinux is preventing me from adding it:
 ```
-setenforce 0
-systemctl enable /var/home/edge/rciots/client/rciots-client.service
-setenforce 1
+systemctl enable /var/home/edge/rciots/rciots-client-nodejs/rciots-client.service
+systemctl start rciots-client.service
 ```
 
 
